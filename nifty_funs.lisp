@@ -167,12 +167,6 @@
 			   (remove e list :count 1))))
 	      list)))
 
-;(defun permutations-tr (list)
-;  (labels ((aux (list nlist))
-;	   (if (null list)
-;	       nlist
-;	       (mapcar #'(lambda (p) (cons (car list)))))))))
-
 (defun readlines (path &optional (fn #'identity))
   "Sucks up an entire file from PATH into a list of freshly-allocated
       strings, returning two values: the list of strings and the number of
