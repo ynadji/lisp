@@ -1,2 +1,3 @@
 # don't include .fasl's
 *.fasl
+.#*.lisp
