@@ -90,7 +90,7 @@
 	if (> (length (divisors y)) num-div) return y))
 
 ;;; Problem 15: Find the number of paths from upper-left -> bottom-right of a 20x20 grid
-;;; soln: 
+;;; soln: 40 choose 20, after 20 "directions" are chosen, the remaining are placed. 40 possible routes, only need 20 to know the exact number of Lefts/Rights to get to the end.
 (defun problem-15 ()
   (/ (fact-tr 40) (* (fact-tr 20) (fact-tr 20))))
 
