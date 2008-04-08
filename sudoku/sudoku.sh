@@ -1,4 +1,6 @@
 #!/bin/bash
+# Runs the necessary commands to work
+# as a trampoline for sbcl.
 
 if [ $# -eq 0 ]
 then
