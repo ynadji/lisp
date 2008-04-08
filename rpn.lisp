@@ -1,3 +1,7 @@
+;;;; Basic RPN-calculator. Leverages Lisp's ability to evaluate
+;;;; commands from a string.
+;;;;
+;;;; Author: Yacin Nadji
 (defpackage :rpn
   (:use :cl)
   (:import-from :nifty-funs #:split)
