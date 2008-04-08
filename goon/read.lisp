@@ -1,0 +1,11 @@
+(defun make-c (path-a path-b path-c)
+  (with-open-file (in-a path-a)
+    (with-open-file (in-b path-b)
+      (with-open-file (out path-c :direction :output :if-exists :supersede :if-does-not-exist :create)
+	(loop
+	   for v1 = (read-line in-a nil nil)
+	   for v2 = (read-line in-b nil nil)
+	   do (when (null v1) (return))
+	   do (write-line (write-to-string (+ (parse-integer v1) (parse-integer v2)))
+			  out)
+	   do (fresh-line out))))))

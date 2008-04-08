@@ -1,0 +1,147 @@
+*db*	db.lisp	/^(defvar *db* nil)$/
+*opt*	rpn.lisp	/^(defparameter *opt* '("+" "-" "*" "\/" "expt"))$/
+:config-parser	config-parser.lisp	/^(defpackage :config-parser$/
+:nifty-funs	nifty_funs.lisp	/^(defpackage :nifty-funs$/
+:onlisp	onlisp.lisp	/^(defpackage :onlisp$/
+:project-euler	project-euler.lisp	/^(defpackage :project-euler$/
+:rpn	rpn.lisp	/^(defpackage :rpn$/
+Mtmp.lisp	tmp.lisp	/^(defun main (limit)$/
+accumulate	jos-mittest.lisp	/^(defun accumulate (combiner null-value l)$/
+add-cds	db.lisp	/^(defun add-cds ()$/
+add-record	db.lisp	/^(defun add-record (cd) (push cd *db*))$/
+after	onlisp.lisp	/^(defun after (x y lst &key (test #'eql))$/
+append-xs	test.lisp	/^(defun append-xs (ll n)$/
+arith	macro_test.lisp	/^(defmacro arith ($/
+average	nifty_funs.lisp	/^(defun average (list)$/
+backwards	macro_test.lisp	/^(defmacro backwards (command)$/
+before	onlisp.lisp	/^(defun before (x y lst &key (test #'eql))$/
+best	onlisp.lisp	/^(defun best (fn lst)$/
+break-loop	onlisp.lisp	/^(defun break-loop (fn quit &rest args)$/
+c2i	config-parser.lisp	/^(defun c2i (c)$/
+calc	rpn.lisp	/^(defun calc (stack opt)$/
+circularp	project-euler.lisp	/^(defun circularp (n primes)$/
+compose	onlisp.lisp	/^(defun compose (&rest fns)$/
+delete-rows	db.lisp	/^(defun delete-rows (selector-fn)$/
+digits	nifty_funs.lisp	/^(defun digits (num)$/
+divisors	nifty_funs.lisp	/^(defun divisors (x)$/
+do-primes	macro.lisp	/^(defmacro do-primes ((var start end) &body body)$/
+dump-db	db.lisp	/^(defun dump-db ()$/
+duplicate	onlisp.lisp	/^(defun duplicate (obj lst &key (test #'eql))$/
+erat	nifty_funs.lisp	/^(defun erat (n)$/
+eratosthenes-sieve	nifty_funs.lisp	/^(defun eratosthenes-sieve (n &optional (composites/
+explode	onlisp.lisp	/^(defun explode (sym)$/
+fact-tr	nifty_funs.lisp	/^(defun fact-tr (n &optional (acc 1))$/
+fib-tr	nifty_funs.lisp	/^(defun fib-tr (n &optional (next 1) (current 0))$/
+fif	onlisp.lisp	/^(defun fif (if then &optional else)$/
+filter	onlisp.lisp	/^(defun filter (fn lst)$/
+filter	tmp.lisp	/^(defun filter (pred L)$/
+find2	onlisp.lisp	/^(defun find2 (fn lst)$/
+fint	onlisp.lisp	/^(defun fint (fn &rest fns)$/
+flatten	onlisp.lisp	/^(defun flatten (x)$/
+fortran	jalel-fortran.lisp	/^(defun fortran (n)$/
+full-mapcar	nifty_funs.lisp	/^(defun full-mapcar (function list)$/
+fun	onlisp.lisp	/^(defun fun (fn &rest fns)$/
+generatePrimes	tmp.lisp	/^(defun generatePrimes (primes limit)$/
+group	onlisp.lisp	/^(defun group (source n)$/
+helper-79	project-euler.lisp	/^(defun helper-79 (passcode logins)$/
+la-dump	la_parse.lisp	/^(defun la-dump (soln)$/
+la-parse	la_parse.lisp	/^(defun la-parse (file)$/
+list	nifty_funs.lisp	/^(defun list= (lst &rest more-lists)$/
+list-gen	nifty_funs.lisp	/^(defun list-gen (start end)$/
+load-db	db.lisp	/^(defun load-db (filename)$/
+longer	onlisp.lisp	/^(defun longer (x y)$/
+lrec	onlisp.lisp	/^(defun lrec (rec &optional base)$/
+m	project-euler.fasl	/^m(n(oŽ$/
+make-cd	db.lisp	/^(defun make-cd (title artist rating ripped)$/
+make-comparison-expr	db.lisp	/^(defun make-comparison-expr (field value)$/
+make-comparisons-list	db.lisp	/^(defun make-comparisons-list (fields)$/
+makelists	test.lisp	/^(defun makelists (ll)$/
+map->	onlisp.lisp	/^(defun map-> (fn start test-fn succ-fn)$/
+map0-n	onlisp.lisp	/^(defun map0-n (fn n)$/
+map1-n	onlisp.lisp	/^(defun map1-n (fn n)$/
+mapa-b	onlisp.lisp	/^(defun mapa-b (fn a b &optional (step 1))$/
+mapcars	onlisp.lisp	/^(defun mapcars (fn &rest lsts)$/
+mappend	onlisp.lisp	/^(defun mappend (fn &rest lsts)$/
+memoize	onlisp.lisp	/^(defun memoize (fn)$/
+mkstr	onlisp.lisp	/^(defun mkstr (&rest args)$/
+monolist	test.lisp	/^(defun monolist (ll)$/
+most	onlisp.lisp	/^(defun most (fn lst)$/
+mostn	onlisp.lisp	/^(defun mostn (fn lst)$/
+newerat	nifty_funs.lisp	/^(defun newerat (n)$/
+next-prime	macro.lisp	/^(defun next-prime (n)$/
+once-only	macro.lisp	/^(defmacro once-only ((&rest names) &body body)$/
+p-12	project-euler.lisp	/^(defun p-12 (num-div)$/
+p-3	project-euler.lisp	/^(defun p-3 (n)$/
+p2	project-euler.lisp	/^(defun p2 (n)$/
+palindromep	nifty_funs.lisp	/^(defun palindromep (string)$/
+parse-triangle	project-euler.lisp	/^(defun parse-triangle (filepath)$/
+permutations	nifty_funs.lisp	/^(defun permutations (list)$/
+pi-sum	mit2a.lisp	/^(defun pi-sum (a b)$/
+poly	test.lisp	/^(defun poly (list x)$/
+polyfun	test.lisp	/^(defun polyfun (p)$/
+polynomial	test.lisp	/^(defmacro polynomial (list x)$/
+prime-factors	nifty_funs.lisp	/^(defun prime-factors (n)$/
+primep	macro.lisp	/^(defun primep (n)$/
+print-conf-line	config-parser.lisp	/^(defun print-conf-line (line stream)$/
+problem-1	project-euler.lisp	/^(defun problem-1 (n)$/
+problem-12	project-euler.lisp	/^(defun problem-12 (num-div)$/
+problem-15	project-euler.lisp	/^(defun problem-15 ()$/
+problem-17	project-euler.lisp	/^(defun problem-17 ()$/
+problem-18/67	project-euler.lisp	/^(defun problem-18\/67 (filepath)$/
+problem-2	project-euler.lisp	/^(defun problem-2 (n)$/
+problem-20	project-euler.lisp	/^(defun problem-20 (n)$/
+problem-21	project-euler.lisp	/^(defun problem-21 (n)$/
+problem-22	project-euler.lisp	/^(defun problem-22 ()$/
+problem-23	project-euler.lisp	/^(defun problem-23 (n)$/
+problem-25	project-euler.lisp	/^(defun problem-25 (n)$/
+problem-26	project-euler.lisp	/^(defun problem-26 (d)$/
+problem-27	project-euler.lisp	/^(defun problem-27 (m)$/
+problem-28	project-euler.lisp	/^(defun problem-28 (n)$/
+problem-29	project-euler.lisp	/^(defun problem-29 (l u)$/
+problem-3	project-euler.lisp	/^(defun problem-3 (n)$/
+problem-30	project-euler.lisp	/^(defun problem-30 ()$/
+problem-34	project-euler.lisp	/^(defun problem-34 ()$/
+problem-35	project-euler.lisp	/^(defun problem-35 (n)$/
+problem-36	project-euler.lisp	/^(defun problem-36 ()$/
+problem-40	project-euler.lisp	/^(defun problem-40 (dz)$/
+problem-42	project-euler.lisp	/^(defun problem-42 ()$/
+problem-52	project-euler.lisp	/^(defun problem-52 (num-mult)$/
+problem-6	project-euler.lisp	/^(defun problem-6 (n m)$/
+problem-79	project-euler.lisp	/^(defun problem-79 (filepath)$/
+problem-9	project-euler.lisp	/^(defun problem-9 ()$/
+process-line	la_parse.lisp	/^(defun process-line (line)$/
+product-of-squares	jos-mittest.lisp	/^(defun product-of-squares (list)$/
+prompt	onlisp.lisp	/^(defun prompt (&rest args)$/
+prompt-for-cd	db.lisp	/^(defun prompt-for-cd ()$/
+prompt-read	db.lisp	/^(defun prompt-read (prompt)$/
+prompt-read	rpn.lisp	/^(defun prompt-read (prompt)$/
+prune	onlisp.lisp	/^(defun prune (test tree)$/
+pset	nifty_funs.lisp	/^(defun pset (lst)$/
+pset-tr	nifty_funs.lisp	/^(defun pset-tr (lst)$/
+range	tmp.lisp	/^(defun range (start stop)$/
+rdc	nifty_funs.lisp	/^(defun rdc (list)$/
+readlines	nifty_funs.lisp	/^(defun readlines (path &optional (fn #'identity))$/
+readlist	onlisp.lisp	/^(defun readlist (&rest args)$/
+repl	rpn.lisp	/^(defun repl (&optional (stack nil))$/
+reread	onlisp.lisp	/^(defun reread (&rest args)$/
+rmapcar	onlisp.lisp	/^(defun rmapcar (fn &rest args)$/
+rpalindromep	nifty_funs.lisp	/^(defun rpalindromep (string)$/
+save-db	db.lisp	/^(defun save-db (filename)$/
+select	db.lisp	/^(defun select (selector-fn)$/
+sieve5	nifty_funs.lisp	/^(defun sieve5 (n)$/
+solve	la_solve.lisp	/^(defun solve (file)$/
+split	nifty_funs.lisp	/^(defun split (line delim parse-as)$/
+split-if	onlisp.lisp	/^(defun split-if (fn lst)$/
+sq-rt	mit2a.lisp	/^(defun sq-rt (x)$/
+square	db.lisp	/^(defun square (x)$/
+square	jos-mittest.lisp	/^(defun square (x)$/
+square	mit2a.lisp	/^(defun square (a)$/
+sudoku-config-dump	config-parser.lisp	/^(defun sudoku-config-dump (puzzle file)$/
+sudoku-config-parse	config-parser.lisp	/^(defun sudoku-config-parse (file)$/
+sum	mit2a.lisp	/^(defun sum (a b)$/
+sum-int	mit2a.lisp	/^(defun sum-int (a b)$/
+sum-sq	mit2a.lisp	/^(defun sum-sq (a b)$/
+symb	onlisp.lisp	/^(defun symb (&rest args)$/
+triangularp	project-euler.lisp	/^(defun triangularp (num)$/
+update	db.lisp	/^(defun update (selector-fn &key title artist ratin/
+where	db.lisp	/^(defmacro where (&rest clauses)$/
