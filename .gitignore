@@ -1,3 +1,5 @@
 # don't include .fasl's
 *.fasl
 .#*.lisp
+*#*.lisp#
+slime
