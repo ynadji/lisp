@@ -154,12 +154,19 @@
 ;;; cannot be written as the sum of two abundant numbers. (smaller than 28123)
 ;; probably works, but is ridiculously slow. figure something out that's faster
 (defun problem-23 (n)
-  (let* ((ret (list-gen 1 n))
-	 (ab-num (loop for x from 1 to n
-		    when (> (reduce #'+ (remove x (divisors x))) x) collect x))
-	 (ab-num-sum (loop for x in ab-num nconc (mapcar #'(lambda (y) (+ x y)) ab-num))))
-    (remove-if #'(lambda (v) (member v ab-num-sum)) ret)))
+  (let ((ab-num (loop for x from 1 to n
+		   when (> (reduce #'+ (remove x (divisors x))) x) collect x)))
+    (loop for x from 1 to (- n 1)
+       for ab-nums = (remove-if #'(lambda (y) (< x y)) ab-num)
+       when (not (twosump x ab-nums)) sum x)))
+;	 (ab-num-sum (loop for x in ab-num nconc (mapcar #'(lambda (y) (+ x y)) ab-num))))
+;    (remove-if #'(lambda (v) (member v ab-num-sum)) ret)))
 
+(defun twosump (val list)
+  (loop for x in list do
+       (loop for y in list
+	  do (when (= val (+ x y)) (return-from twosump val)))))
+	 
 ;;; Problem 25: Find the first fibonacci number 1000 digits in length
 (defun problem-25 (n)
   (loop for x from 1
@@ -209,6 +216,27 @@
   (loop for x from 2 to 200000
 	when (= x (reduce #'+ (mapcar #'(lambda (x) (expt x 5)) (digits x)))) sum x))
 
+;;; Problem 32: The product 7254 is unusual, as the identity, 39  186 = 7254,
+;;; containing multiplicand, multiplier, and product is 1 through 9 pandigital.
+;;; Find the sum of all products whose multiplicand/multiplier/product identity
+;;; can be written as a 1 through 9 pandigital.
+
+;;; NOTE: We can determine that a * b = c; a,b = 1,4 OR a,b = 2,3 digits
+(defun problem-32 ()
+  (let ((identities nil))
+    (loop for a from 1 to 9
+       do (loop for b from 1000 to 9999
+	     for c = (* a b)
+	     when (pandigital (stigid (list a b c)) (list-gen 1 9))
+	     do (push c identities)))
+    (loop for a from 10 to 99
+       do (loop for b from 100 to 999
+	     for c = (* a b)
+	     when (and (= a 39) (= b 186))
+	     when (pandigital (stigid (list a b c)) (list-gen 1 9))
+	     do (push c identities)))
+    (reduce #'+ (remove-duplicates identities))))
+
 ;;; Problem 34: Find the sum of the numbers that their digits' factorials, sum to the
 ;;;             original number
 (defun problem-34 ()
@@ -256,6 +284,29 @@
   (let ((v (/ (- (sqrt (+ (* 8 num) 1)) 1) 2)))
     (equalp v (floor v))))
 
+;;; Problem 39: If p is the perimeter of a right angle triangle with integral length sides, {a,b,c},
+;;; there are exactly three solutions for p = 120.
+;;; {20,48,52}, {24,45,51}, {30,40,50}
+;;; For which value of p < 1000, is the number of solutions maximised?
+(defun problem-39 (perimeter)
+  (declare (fixnum perimeter) (optimize (speed 3) (safety 0)))
+  (loop for a from 1 to perimeter
+     if (< (+ a a (sqrt (* 2 (expt a 2)))) perimeter)
+     nconc (loop for b from a to perimeter
+	      for c = (multiple-value-list (floor (sqrt (+ (expt a 2) (expt b 2)))))
+	      if (< (+ a b (car c)) perimeter)
+	        if (zerop (cadr c))
+		  collect (+ a b (car c))
+		end
+	      else
+		do (loop-finish))
+     else
+     do (loop-finish)))
+;	      if (and (zerop (cadr c)) (< (+ a b (car c)) perimeter))
+;		collect (+ a b (car c));)))
+;	      else
+;	        do (loop-finish))))
+
 ;;; Problem 40: If dn represents the nth digit of the fractional part, find the value of the following expression.
 ;;; d1 X d10 X d100 X d1000 X d10000 X d100000 X d1000000
 (defun problem-40 (dz)
@@ -273,11 +324,47 @@
        when (triangularp (loop for y across word sum (- (char-code y) 64))) do (incf count))
     count))
 
+;;; Problem 49: The arithmetic sequence, 1487, 4817, 8147, in which each
+;;; of the terms increases by 3330, is unusual in two ways:
+;;; (i) each of the three terms are prime, and,
+;;; (ii) each of the 4-digit numbers are permutations of one another.
+;;; There are no arithmetic sequences made up of three 1-, 2-, or 3-digit primes,
+;;; exhibiting this property, but there is one other 4-digit increasing sequence.
+;;; What 12-digit number do you form by concatenating the three terms in this sequence?
+(defun problem-49 ()
+  (labels ((member3 (perms list)
+	     (let ((count 0))
+	       (loop for perm in perms
+		    when (member perm list :test #'equal) do (incf count))
+	       (if (> count 2)
+		   count
+		   nil))))
+    (let ((perms nil)
+	  (prime-digs (remove-if #'(lambda (x) (< (length x) 4))
+	   (mapcar #'digits (sieve5 9999)))))
+      (loop for number in (mapcar #'digits (sieve5 9999))
+	 when (and (null (member3 (permutations number) perms))
+		   (member3 (permutations number) prime-digs))
+	 do (push number perms))
+      (setq perms (nreverse (mapcar #'stigid perms)))
+	(loop for val in perms
+	     when (and (member (+ val 3330) perms)
+		       (member (+ val 6660) perms))
+	     collect (list val (+ val 3330) (+ val 6660))))))
+	 
 ;;; Problem 52: Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x, contain the same digits in some order.
 (defun problem-52 (num-mult)
   (let ((mult (list-gen 1 num-mult)))
     (loop for x from 1 to 1000000
 	  if (apply #'list= (mapcar #'(lambda (y) (sort (digits (* x y)) #'<)) mult)) return x)))
+
+;;; Problem 69: Find the value of n <= 1,000,000 for which n/phi(n) is a maximum, where phi(n) === (euler-totient n)
+(defun problem-69 ()
+  "This problem can be approach backwards. If we find the largest
+   product of primes below 1,000,000; we will have the largest
+   number that is relatively prime to the most numbers less than
+   it. The smalles are the list of primes up to 18."
+  (reduce #'* (eratosthenes-sieve 18)))
 
 ;;; Problem 79: Read in /Users/ynadji/Code/Lisp/project-euler/keylog.txt, and determine the
 ;;;             users password

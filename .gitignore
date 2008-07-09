@@ -3,3 +3,4 @@
 .#*.lisp
 *#*.lisp#
 slime
+*.lisp~

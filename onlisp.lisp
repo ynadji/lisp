@@ -2,7 +2,8 @@
   (:use :cl)
   (:export #:flatten)
   (:export #:after)
-  (:export #:before))
+  (:export #:before)
+  (:export #:memoize))
 
 (provide :onlisp)
 (in-package :onlisp)

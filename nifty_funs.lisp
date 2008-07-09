@@ -11,11 +11,14 @@
   (:export #:sieve5)
   (:export #:palindromep)
   (:export #:digits)
+  (:export #:stigid)
   (:export #:divisors)
   (:export #:split)
   (:export #:list=)
   (:export #:readlines)
-  (:export #:euler-totient))
+  (:export #:euler-totient)
+  (:export #:pandigital)
+  (:export #:permutations))
 
 (provide :nifty-funs)
 (in-package :nifty-funs)
@@ -108,6 +111,9 @@
 (defun digits (num)
   (map 'list #'(lambda (char) (read-from-string (string char))) (prin1-to-string num)))
 
+(defun stigid (list)
+  (values (parse-integer (format nil "~{~a~^~}" list))))
+
 (defun divisors (x)
   (remove-duplicates
    (loop for y from 1 to (sqrt x)
@@ -183,3 +189,25 @@
    for any number n"
   (let ((coprimes (loop for x from 1 to n when (= 1 (gcd x n)) collect x)))
     (values (length coprimes) coprimes)))
+
+(defun part-k-n (k n)
+  (let ((cache (make-hash-table :test #'equal)))
+    (labels ((aux (k n cache)
+	       (multiple-value-bind (val win) (gethash (list k n) cache)
+		 (if win
+		     val
+		     (setf (gethash (list k n) cache)
+			   (cond ((> k n) 0)
+				 ((= k n) 1)
+				 (t (+ (part-k-n (+ k 1) n) (part-k-n k (- n k))))))))))
+    (aux k n cache))))
+
+(defun pandigital (n digits)
+  (cond ((not (= (length digits) (length (digits n))))
+	 nil)
+	(t
+  (loop for x in (digits n)
+       do (setq digits (delete x digits)))
+  (if (null digits)
+      t
+      nil))))
