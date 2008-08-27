@@ -188,11 +188,26 @@
     ret))
 
 ;;; Problem 27: Find a and b, such that n^2 + an + b creates the longest
-;;; prime generation function for |a,b| <= 1000
+;;; prime generation function for |a,b| < 1000
 (defun problem-27 (m)
   (let* ((tmp (sieve5 m))
-	 (poss-vals (append tmp (mapcar #'(lambda (x) (* -1 x)))))
-	 (primes (sieve5 100000)))))
+	 (poss-vals (append tmp (mapcar #'(lambda (x) (* -1 x)) tmp)))
+	 (primes (sieve5 100000))
+	 (max (cons 0 0)))
+    (loop for a in poss-vals do
+	 (loop for b in poss-vals
+	    for v = (prime-chain-check primes a b)
+	    when (> v (car max))
+	    do (setq max (cons v (* a b)))))
+    max))
+	 
+(defun prime-chain-check (prime-list a b)
+  (let ((length 0))
+    (loop for n from 0
+       if (member (+ (expt n 2) (* a n) b) prime-list)
+       do (incf length)
+       else
+       do (return length))))
 
 ;;; Problem 28: What is the sum of both diagonals in a 1001x1001 spiral?
 (defun problem-28 (n)
@@ -317,12 +332,9 @@
 
 ;;; Problem 40: If dn represents the nth digit of the fractional part, find the value of the following expression.
 ;;; d1 X d10 X d100 X d1000 X d10000 X d100000 X d1000000
-(defun problem-40 (dz)
-  (labels ((aux (dz prod)
-	     (if (null dz)
-		 prod
-		 
-    (aux dz 1))))))
+;;; using FORMAT is too slow, going to have to mod numbers
+;;; or use DIGITS and keep track of previous digit count, and current
+;;; digit count. laaaaaaaaaame
 
 ;;; Problem 42: How many words in words.new are triangular words?
 (defun problem-42 ()
