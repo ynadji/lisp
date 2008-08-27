@@ -216,6 +216,14 @@
   (loop for x from 2 to 200000
 	when (= x (reduce #'+ (mapcar #'(lambda (x) (expt x 5)) (digits x)))) sum x))
 
+;;; Problem 31: Find the different ways to make 2 pounds from change
+;;; Mathematic code
+;;; SeriesCoefficient[Series[
+;	(1/(1 - x)*1/(1 - x^2)*1/(1 - x^5)*1/(1 - x^10)*1/(1 - 
+;        x^20)*1/(1 - x^50)*1/(1 - x^100)*1/(1 - x^200)), {x, 0, 
+;	   200}], 200]
+; generating function for [x^200] 1/(1-x)(1-x^2)...(1-x^200)
+
 ;;; Problem 32: The product 7254 is unusual, as the identity, 39  186 = 7254,
 ;;; containing multiplicand, multiplier, and product is 1 through 9 pandigital.
 ;;; Find the sum of all products whose multiplicand/multiplier/product identity
