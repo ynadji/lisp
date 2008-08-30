@@ -18,7 +18,9 @@
   (:export #:readlines)
   (:export #:euler-totient)
   (:export #:pandigital)
-  (:export #:permutations))
+  (:export #:permutations)
+  (:export #:choose)
+  (:export #:perms))
 
 (provide :nifty-funs)
 (in-package :nifty-funs)
@@ -211,3 +213,9 @@
   (if (null digits)
       t
       nil))))
+
+(defun choose (n r)
+  (/ (fact-tr n) (* (fact-tr (- n r)) (fact-tr r))))
+
+(defun perms (n r)
+    (/ (fact-tr n) (fact-tr (- n r))))
