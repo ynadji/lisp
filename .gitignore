@@ -3,4 +3,7 @@
 .#*.lisp
 *#*.lisp#
 slime
+slime-cvs
 *.lisp~
+clojure
+*.clj~
