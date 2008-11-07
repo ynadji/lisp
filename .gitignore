@@ -2,6 +2,7 @@
 *.fasl
 .#*.lisp
 *#*.lisp#
+*#*.clj#
 slime
 slime-cvs
 *.lisp~
