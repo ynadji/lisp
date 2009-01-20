@@ -9,3 +9,5 @@ slime-cvs
 clojure
 *.clj~
 gorilla
+programming-clojure
+ants.clj
