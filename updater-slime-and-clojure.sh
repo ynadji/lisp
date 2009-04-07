@@ -6,7 +6,7 @@ ant
 
 cd $HOME/clojure-contrib
 git pull
-ant
+ant -Dclojure.jar=../clojure/clojure.jar
 
 cd $HOME/slime
 git pull
