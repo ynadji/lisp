@@ -27,12 +27,12 @@
 
 (defn digits [n]
   "Returns a list of the digits of a number"
-  (map (fn [x] (. Integer (parseInt x)))
+  (map (fn [x] (Integer. x))
        (rest (. (str n) (split "")))))
 
-(defn stigid [n]
+(defn stigid [list]
   "The opposite of digits :)"
-  (. Integer (parseInt (reduce str "" n))))
+  (Integer. (apply str list)))
 
 (defn- factorize-out
   "Factorizes out all x factors from n.
@@ -59,8 +59,7 @@ http://en.wikipedia.org/wiki/Modular_exponentiation#An_efficient_method:_the_rig
 	     (bit-shift-right e 1)))))
 
 (defn prime?
-  "Checks if n is a prime using the Miller-Rabin pseudo-primality test.  Also
-   see *pseudo* and *pseudo-accuracy*."
+  "Checks if n is a prime using the Miller-Rabin pseudo-primality test."
   [n k-in]
   (cond
     (< n 2)   false
@@ -84,3 +83,18 @@ http://en.wikipedia.org/wiki/Modular_exponentiation#An_efficient_method:_the_rig
 			    :else (recur (inc r) (mod (* x x) n))))
 		      (recur (inc k))
 		      false))))))))
+
+(defn factorial [n]
+  "Returns n!"
+  (loop [n n acc 1]
+    (if (<= n 1)
+      acc
+      (recur (dec n) (* acc n)))))
+
+(defn choose [n r]
+  "Counts C(n,r)"
+  (/ (factorial n) (* (factorial (- n r)) (factorial r))))
+
+(defn perms [n r]
+  "Counts P(n,r)"
+  (/ (factorial n) (factorial (- n r))))

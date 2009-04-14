@@ -1,6 +1,7 @@
 # don't include .fasl's
 *.fasl
 .#*.lisp
+.#*.clj
 *#*.lisp#
 *#*.clj#
 slime
