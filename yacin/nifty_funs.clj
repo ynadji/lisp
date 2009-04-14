@@ -1,9 +1,10 @@
 (clojure.core/ns yacin.nifty-funs
 		 (:use clojure.contrib.math))
 
-(defn sieve [n]
+(defn sieve
+  "Returns a list of all primes from 2 to n"
+  [n]
   (let [n (int n)]
-    "Returns a list of all primes from 2 to n"
     (let [root (int (round (ceil (sqrt n))))]
       (loop [i (int 3)
 	     a (int-array n)
@@ -25,13 +26,15 @@
 		   (conj result i)
 		   result)))))))
 
-(defn digits [n]
+(defn digits
   "Returns a list of the digits of a number"
+  [n]
   (map (fn [x] (Integer. x))
        (rest (. (str n) (split "")))))
 
-(defn stigid [list]
+(defn stigid
   "The opposite of digits :)"
+  [list]
   (Integer. (apply str list)))
 
 (defn- factorize-out
@@ -84,17 +87,20 @@ http://en.wikipedia.org/wiki/Modular_exponentiation#An_efficient_method:_the_rig
 		      (recur (inc k))
 		      false))))))))
 
-(defn factorial [n]
+(defn factorial
   "Returns n!"
+  [n]
   (loop [n n acc 1]
     (if (<= n 1)
       acc
       (recur (dec n) (* acc n)))))
 
-(defn choose [n r]
+(defn choose
   "Counts C(n,r)"
+  [n r]
   (/ (factorial n) (* (factorial (- n r)) (factorial r))))
 
-(defn perms [n r]
+(defn perms
   "Counts P(n,r)"
+  [n r]
   (/ (factorial n) (factorial (- n r))))
