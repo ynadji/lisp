@@ -3,7 +3,7 @@
 (defn sieve [n]
   (let [n (int n)]
     "Returns a list of all primes from 2 to n"
-    (let [root (int (Math/round (Math/floor (Math/sqrt n))))]
+    (let [root (int (Math/round (Math/ceil (Math/sqrt n))))]
       (loop [i (int 3)
 	     a (int-array n)
 	     result (list 2)]
@@ -27,3 +27,6 @@
 (defn digits [n]
   (map (fn [x] (. Integer (parseInt x)))
        (rest (. (str n) (split "")))))
+
+(defn stigid [n]
+  (. Integer (parseInt (reduce str "" n))))
