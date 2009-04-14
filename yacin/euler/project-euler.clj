@@ -81,3 +81,26 @@ from left to right and right to left."
 		  (map #(BigInteger. (apply str %)) perms)
 		  :when (prime? potential-prime 10)]
 	      potential-prime))))
+
+(defn- pentagonal-number [n]
+  (/ (* n (- (* 3 n) 1)) 2))
+
+(defn- hexagonal-number [n]
+  (* n (- (* 2 n) 1)))
+
+(defn problem-45 []
+  "40755 is a triangular, pentagonal and hexagonal number. When is the next one?
+   All hex numbers are triangular, so check for the first hex/pent match"
+  (loop [np 165, nh 144
+	 p (pentagonal-number np)
+	 h (hexagonal-number nh)]
+    (if (= p h)
+      p
+      (if (< p h)
+	(recur (inc np) nh
+	       (pentagonal-number (inc np))
+	       h)
+	(recur np (inc nh)
+	       p
+	       (hexagonal-number (inc nh)))))))
+
