@@ -1,7 +1,7 @@
 (clojure.core/ns yacin.brainfuck)
 
 (defn- get-loop-in-and-out
-  "Gets indices for loop ins and loop outs"
+  "Gets indices for loop ins and loop outs of brainfuck code in str"
   [str]
   (loop [code (into-array str)
 	 tmp nil
@@ -22,7 +22,7 @@
 		   loop-in loop-out)))))
 
 (defn- bf-eval
-  "Evaluates a line of brainfuck."
+  "Evaluates str, a brainfuck program."
   [str]
   (let [[loop-in loop-out code] (get-loop-in-and-out str)]
     (loop [dp 0, m {}, i 0, out (new StringBuffer "")]
@@ -38,6 +38,9 @@
 	      (= (aget code i) \<) (reset! dpfun dec)
 	      (= (aget code i) \+) (reset! mfun #(assoc (dissoc % dp) dp (mod (inc (or (get % dp) 0)) 255)))
 	      (= (aget code i) \-) (reset! mfun #(assoc (dissoc % dp) dp (mod (dec (or (get % dp) 0)) 255)))
+	      (= (aget code i) \,) (reset! mfun #(assoc (dissoc % dp) dp (int
+									  (let [in (read-line)]
+									    (if (= "\\0" in) 0 (.charAt in 0))))))
 	      (= (aget code i) \.) (reset! outfun #(. % append (char (get m dp))))
 	      (= (aget code i) \[) (reset! ifun #(inc (if (zero? (get m dp)) (get loop-out %) %)))
 	      (= (aget code i) \]) (reset! ifun #(get loop-in %)))
