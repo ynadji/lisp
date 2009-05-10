@@ -1,3 +1,11 @@
+; Brainfuck interpreter written in Clojure. I was bored
+; and thought it'd be fun ti write this. Soaked up some
+; time and I had some fun, hooray!
+
+; Yacin Nadji - yacin@gatech.edu
+; Import, run (repl) to be dropped into a bf repl. I'll
+; probably add a (compile str) function that returns
+; IA 32 asm representation. That should be fun/easy.
 (clojure.core/ns yacin.brainfuck)
 
 (defn- get-loop-in-and-out
