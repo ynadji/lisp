@@ -25,30 +25,23 @@
   "Evaluates a line of brainfuck."
   [str]
   (let [[loop-in loop-out code] (get-loop-in-and-out str)]
-    (loop [dp 0
-	   m {}
-	   i 0
-	   out (new StringBuffer "")]
-      (cond (= i (count code))
-	    (print (.toString out))
-	    (= (aget code i) \>)
-	    (recur (inc dp) m (inc i) out)
-	    (= (aget code i) \<)
-	    (recur (dec dp) m (inc i) out)
-	    (= (aget code i) \+)
-	    (recur dp (assoc (dissoc m dp) dp (mod (inc (or (get m dp) 0)) 255))
-		   (inc i) out)
-	    (= (aget code i) \-)
-	    (recur dp (assoc (dissoc m dp) dp (mod (dec (or (get m dp) 0)) 255))
-		   (inc i) out)
-	    (= (aget code i) \.)
-	    (recur dp m (inc i) (. out append (char (get m dp))))
-	    (= (aget code i) \[)
-	    (recur dp m (inc (if (zero? (get m dp)) (get loop-out i) i)) out)
-	    (= (aget code i) \])
-	    (recur dp m (get loop-in i) out)
-	    :else
-	    (recur dp m (inc i) out)))))
+    (loop [dp 0, m {}, i 0, out (new StringBuffer "")]
+      (let [dpfun (atom identity)
+	    mfun (atom identity)
+	    ifun (atom inc)
+	    outfun (atom identity)]
+	(if (= i (count code))
+	  (print (.toString out))
+	  (do
+	    (cond
+	      (= (aget code i) \>) (reset! dpfun inc)
+	      (= (aget code i) \<) (reset! dpfun dec)
+	      (= (aget code i) \+) (reset! mfun #(assoc (dissoc % dp) dp (mod (inc (or (get % dp) 0)) 255)))
+	      (= (aget code i) \-) (reset! mfun #(assoc (dissoc % dp) dp (mod (dec (or (get % dp) 0)) 255)))
+	      (= (aget code i) \.) (reset! outfun #(. % append (char (get m dp))))
+	      (= (aget code i) \[) (reset! ifun #(inc (if (zero? (get m dp)) (get loop-out %) %)))
+	      (= (aget code i) \]) (reset! ifun #(get loop-in %)))
+	    (recur (@dpfun dp) (@mfun m) (@ifun i) (@outfun out))))))))
 
 (defn repl
   "Line-by-line interpreter for brainfuck."
