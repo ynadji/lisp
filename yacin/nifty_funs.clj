@@ -1,5 +1,6 @@
 (clojure.core/ns yacin.nifty-funs
-		 (:use clojure.contrib.math))
+		 (:use clojure.contrib.math
+		       clojure.contrib.pprint))
 
 (defn sieve
   "Returns a list of all primes from 2 to n"
@@ -104,3 +105,9 @@ http://en.wikipedia.org/wiki/Modular_exponentiation#An_efficient_method:_the_rig
   "Counts P(n,r)"
   [n r]
   (/ (factorial n) (factorial (- n r))))
+
+;(defn factor
+;  "Returns the prime factors of n"
+;  (letfn [[aux [n primes] (cl-format false "~a ~a~%" n primes)]]
+;    ([n] (aux n (sieve (sqrt n))))
+;    ([n primes] (aux n primes))))

@@ -1,7 +1,12 @@
 (clojure.core/ns yacin.euler.project-euler
 		 (:use yacin.nifty-funs)
 		 (:use clojure.contrib.math)
-		 (:use clojure.contrib.combinatorics))
+		 (:use clojure.contrib.combinatorics)
+		 (:use clojure.contrib.str-utils)
+		 (:use clojure.contrib.pprint))
+
+;;;; constants
+(def input-file-59 "/Users/ynadji/Code/Lisp/yacin/euler/cipher1.txt")
 
 (defn- curious-reduce
   "Helper for problem-33"
@@ -168,3 +173,18 @@ from left to right and right to left."
 	  (recur (inc n) 1 cnt)
 	  :else
 	  (recur n (inc r) cnt))))
+
+;;;; doesn't work
+(defn problem-59
+  []
+  (let [input (slurp input-file-59)
+	ascii-chars (map #(Integer. (chomp %)) (re-split #"," input))]
+    (loop [xor-value 0]
+      (let [new-ascii (map #(bit-xor xor-value %) ascii-chars)
+	    string (apply str (map char new-ascii))]
+	(cl-format true "~a~%" string)
+	(if (or (> xor-value 255)
+		(or (re-find #" the " string)
+		    (re-find #" THE " string)))
+	  string
+	  (recur (inc xor-value)))))))

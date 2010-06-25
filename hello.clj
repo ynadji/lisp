@@ -6,3 +6,7 @@
   ([x] x)
   ([x y] (+ x y))
   ([x y & rest] (plus (plus x y) (plus rest))))
+
+(defn -main
+  [& args]
+  (hello))

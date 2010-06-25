@@ -1,8 +1,9 @@
 ; Brainfuck interpreter written in Clojure. I was bored
 ; and thought it'd be fun ti write this. Soaked up some
 ; time and I had some fun, hooray!
-
+;
 ; Yacin Nadji - yacin@gatech.edu
+;
 ; Import, run (repl) to be dropped into a bf repl. I'll
 ; probably add a (compile str) function that returns
 ; IA 32 asm representation. That should be fun/easy.
@@ -29,7 +30,7 @@
 	    (recur code tmp (inc i)
 		   loop-in loop-out)))))
 
-(defn- bf-eval
+(defn bf-eval
   "Evaluates str, a brainfuck program."
   [str]
   (let [[loop-in loop-out code] (get-loop-in-and-out str)]
@@ -65,3 +66,19 @@
       (do (bf-eval str)
 	  (flush)
 	  (recur)))))
+
+(defn clj-to-bf
+  "Compiles clojure code - code - to brainfuck."
+  [code]
+  (let [sb (new StringBuffer)]
+    (let [fnum (nth code 1)
+	  snum (nth code 2)]
+      (.append sb (apply str (repeat fnum "+")))
+      (.append sb ">")
+      (.append sb (apply str (repeat snum "+")))
+      (.append sb ">")
+      (.append sb "<<")
+      (.append sb "[->+<]>")
+      (.append sb (apply str (repeat 48 "+")))
+      (.append sb "."))
+    (.toString sb)))
